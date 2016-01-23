@@ -1,0 +1,25 @@
+{
+  "name": "propel/propel-acl-bundle",
+  "description": "Propel integration of the Symfony Security ACL component.",
+  "keywords": ["propel", "orm", "persistence", "symfony", "security", "acl"],
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [{
+    "name": "Toni Uebernickel",
+    "email": "tuebernickel@gmail.com"
+  }],
+
+  "autoload": {
+    "psr-4": { "Propel\\Bundle\\PropelAclBundle\\": "" },
+    "exclude-from-classmap": [ "Tests/" ]
+  },
+
+  "require": {
+    "propel/propel-bundle": "1.5.x@dev",
+    "symfony/security-acl": "@stable"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.8.21|^5.0.10",
+    "symfony/symfony": "^2.8.2"
+  }
+}
