@@ -10,7 +10,6 @@
 namespace Propel\Bundle\PropelAclBundle\Security\Acl;
 
 use Propel\Bundle\PropelAclBundle\Model\Acl\Entry as ModelEntry;
-use Propel\Bundle\PropelAclBundle\Model\Acl\EntryPeer;
 use Propel\Bundle\PropelAclBundle\Model\Acl\EntryQuery;
 use Propel\Bundle\PropelAclBundle\Model\Acl\ObjectIdentity;
 use Propel\Bundle\PropelAclBundle\Model\Acl\ObjectIdentityQuery;
@@ -19,7 +18,6 @@ use Propel\Bundle\PropelAclBundle\Security\Acl\Domain\Acl;
 use Propel\Bundle\PropelAclBundle\Security\Acl\Domain\MutableAcl;
 use Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException;
 use Symfony\Component\Security\Acl\Exception\Exception as AclException;
-use Symfony\Component\Security\Acl\Model\AclCacheInterface;
 use Symfony\Component\Security\Acl\Model\AclInterface;
 use Symfony\Component\Security\Acl\Model\AuditableEntryInterface;
 use Symfony\Component\Security\Acl\Model\EntryInterface;
@@ -27,7 +25,6 @@ use Symfony\Component\Security\Acl\Model\FieldEntryInterface;
 use Symfony\Component\Security\Acl\Model\MutableAclInterface;
 use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 use Symfony\Component\Security\Acl\Model\ObjectIdentityInterface;
-use Symfony\Component\Security\Acl\Model\PermissionGrantingStrategyInterface;
 
 /**
  * An implementation of the MutableAclProviderInterface using Propel ORM.
@@ -36,24 +33,6 @@ use Symfony\Component\Security\Acl\Model\PermissionGrantingStrategyInterface;
  */
 class MutableAclProvider extends AclProvider implements MutableAclProviderInterface
 {
-    /**
-     * Constructor.
-     *
-     * @param \Symfony\Component\Security\Acl\Model\PermissionGrantingStrategyInterface $permissionGrantingStrategy
-     * @param \PropelPDO                                                                $connection
-     * @param \Symfony\Component\Security\Acl\Model\AclCacheInterface                   $cache
-     */
-    public function __construct(PermissionGrantingStrategyInterface $permissionGrantingStrategy, \PropelPDO $connection = null, AclCacheInterface $cache = null)
-    {
-        // @codeCoverageIgnoreStart
-        if (null === $connection) {
-            $connection = \Propel::getConnection(EntryPeer::DATABASE_NAME, \Propel::CONNECTION_WRITE);
-        }
-        // @codeCoverageIgnoreEnd
-
-        parent::__construct($permissionGrantingStrategy, $connection, $cache);
-    }
-
     /**
      * Creates a new ACL for the given object identity.
      *
