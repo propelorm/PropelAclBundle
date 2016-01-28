@@ -9,7 +9,6 @@
  */
 namespace Propel\Bundle\PropelAclBundle\Tests\Model\Acl;
 
-use Criteria;
 use Propel\Bundle\PropelAclBundle\Model\Acl\AclClass;
 use Propel\Bundle\PropelAclBundle\Model\Acl\AclClassPeer;
 use Propel\Bundle\PropelAclBundle\Tests\TestCase;
@@ -28,7 +27,7 @@ class AclClassTest extends TestCase
         $this->assertInstanceOf('Propel\Bundle\PropelAclBundle\Model\Acl\AclClass', $aclClass);
         $this->assertEquals($type, $aclClass->getType());
 
-        $dbEntry = AclClassPeer::doSelectOne(new Criteria(), $this->con);
+        $dbEntry = AclClassPeer::doSelectOne(new \Criteria(), $this->con);
         $this->assertInstanceOf('Propel\Bundle\PropelAclBundle\Model\Acl\AclClass', $dbEntry);
         $this->assertEquals($type, $dbEntry->getType());
 

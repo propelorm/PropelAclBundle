@@ -9,7 +9,6 @@
  */
 namespace Propel\Bundle\PropelAclBundle\Tests\Model\Acl;
 
-use Criteria;
 use Propel\Bundle\PropelAclBundle\Model\Acl\ObjectIdentity;
 use Propel\Bundle\PropelAclBundle\Model\Acl\ObjectIdentityAncestorQuery;
 use Propel\Bundle\PropelAclBundle\Model\Acl\ObjectIdentityQuery;
@@ -31,7 +30,7 @@ class ObjectIdentityTest extends TestCase
 
         $anotherIdenity = $this->createModelObjectIdentity(2);
 
-        $ancestorEntries = ObjectIdentityAncestorQuery::create()->orderByAncestorId(Criteria::ASC)->find($this->con);
+        $ancestorEntries = ObjectIdentityAncestorQuery::create()->orderByAncestorId(\Criteria::ASC)->find($this->con);
         $this->assertCount(2, $ancestorEntries);
         $this->assertEquals($objIdenity->getId(), $ancestorEntries[0]->getAncestorId());
         $this->assertEquals($objIdenity->getId(), $ancestorEntries[0]->getObjectIdentityId());
@@ -48,7 +47,7 @@ class ObjectIdentityTest extends TestCase
 
         $entries = ObjectIdentityAncestorQuery::create()
             ->filterByObjectIdentityId($obj->getId())
-            ->orderByAncestorId(Criteria::ASC)
+            ->orderByAncestorId(\Criteria::ASC)
             ->find($this->con)
         ;
         $this->assertCount(2, $entries);
@@ -61,7 +60,7 @@ class ObjectIdentityTest extends TestCase
 
         $entries = ObjectIdentityAncestorQuery::create()
             ->filterByObjectIdentityId($obj->getId())
-            ->orderByAncestorId(Criteria::ASC)
+            ->orderByAncestorId(\Criteria::ASC)
             ->find($this->con)
         ;
         $this->assertCount(1, $entries);
@@ -82,8 +81,8 @@ class ObjectIdentityTest extends TestCase
         $obj->setObjectIdentityRelatedByParentObjectIdentityId($parent)->save($this->con);
 
         $entries = ObjectIdentityAncestorQuery::create()
-            ->orderByObjectIdentityId(Criteria::ASC)
-            ->orderByAncestorId(Criteria::ASC)
+            ->orderByObjectIdentityId(\Criteria::ASC)
+            ->orderByAncestorId(\Criteria::ASC)
             ->find($this->con)
         ;
         $this->assertCount(6, $entries);
@@ -135,8 +134,8 @@ class ObjectIdentityTest extends TestCase
 
         // Verify "before"
         $entries = ObjectIdentityAncestorQuery::create()
-            ->orderByObjectIdentityId(Criteria::ASC)
-            ->orderByAncestorId(Criteria::ASC)
+            ->orderByObjectIdentityId(\Criteria::ASC)
+            ->orderByAncestorId(\Criteria::ASC)
             ->find($this->con)
         ;
         $this->assertCount(9, $entries);
@@ -172,8 +171,8 @@ class ObjectIdentityTest extends TestCase
         $obj->setObjectIdentityRelatedByParentObjectIdentityId($parent)->save($this->con);
 
         $entries = ObjectIdentityAncestorQuery::create()
-            ->orderByObjectIdentityId(Criteria::ASC)
-            ->orderByAncestorId(Criteria::ASC)
+            ->orderByObjectIdentityId(\Criteria::ASC)
+            ->orderByAncestorId(\Criteria::ASC)
             ->find($this->con)
         ;
         $this->assertCount(15, $entries);
@@ -227,8 +226,8 @@ class ObjectIdentityTest extends TestCase
         $obj->setObjectIdentityRelatedByParentObjectIdentityId(null)->save($this->con);
 
         $entries = ObjectIdentityAncestorQuery::create()
-            ->orderByObjectIdentityId(Criteria::ASC)
-            ->orderByAncestorId(Criteria::ASC)
+            ->orderByObjectIdentityId(\Criteria::ASC)
+            ->orderByAncestorId(\Criteria::ASC)
             ->find($this->con)
         ;
         $this->assertCount(9, $entries);
@@ -290,7 +289,7 @@ class ObjectIdentityTest extends TestCase
             ->save($this->con)
         ;
 
-        $entries = ObjectIdentityQuery::create()->orderByParentObjectIdentityId(Criteria::ASC)->find($this->con);
+        $entries = ObjectIdentityQuery::create()->orderByParentObjectIdentityId(\Criteria::ASC)->find($this->con);
 
         $this->assertCount(2, $entries);
         $this->assertNull($entries[0]->getParentObjectIdentityId());

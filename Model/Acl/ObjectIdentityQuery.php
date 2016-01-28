@@ -15,12 +15,12 @@ use Symfony\Component\Security\Acl\Model\ObjectIdentityInterface;
 class ObjectIdentityQuery extends BaseObjectIdentityQuery
 {
     /**
-     * Filter by an ObjectIdentity object belonging to the given ACL related ObjectIdentity.
+     * Filters by an ObjectIdentity object belonging to the given ACL related ObjectIdentity.
      *
-     * @param \Symfony\Component\Security\Acl\Model\ObjectIdentityInterface $objectIdentity
-     * @param \PropelPDO                                                    $con
+     * @param ObjectIdentityInterface $objectIdentity
+     * @param \PropelPDO|null         $con
      *
-     * @return \Propel\Bundle\PropelAclBundle\Model\Acl\ObjectIdentityQuery $this
+     * @return ObjectIdentityQuery
      */
     public function filterByAclObjectIdentity(ObjectIdentityInterface $objectIdentity, \PropelPDO $con = null)
     {
@@ -38,12 +38,12 @@ class ObjectIdentityQuery extends BaseObjectIdentityQuery
     }
 
     /**
-     * Return an ObjectIdentity object belonging to the given ACL related ObjectIdentity.
+     * Returns an ObjectIdentity object belonging to the given ACL related ObjectIdentity.
      *
-     * @param \Symfony\Component\Security\Acl\Model\ObjectIdentityInterface $objectIdentity
-     * @param \PropelPDO                                                    $con
+     * @param ObjectIdentityInterface $objectIdentity
+     * @param \PropelPDO|null         $con
      *
-     * @return \Propel\Bundle\PropelAclBundle\Model\Acl\ObjectIdentity
+     * @return ObjectIdentity
      */
     public function findOneByAclObjectIdentity(ObjectIdentityInterface $objectIdentity, \PropelPDO $con = null)
     {
@@ -54,10 +54,10 @@ class ObjectIdentityQuery extends BaseObjectIdentityQuery
     }
 
     /**
-     * Return all children of the given object identity.
+     * Returns all children of the given object identity.
      *
-     * @param \Propel\Bundle\PropelAclBundle\Model\Acl\ObjectIdentity $objectIdentity
-     * @param \PropelPDO                                              $con
+     * @param ObjectIdentity  $objectIdentity
+     * @param \PropelPDO|null $con
      *
      * @return \PropelObjectCollection
      */
@@ -72,8 +72,8 @@ class ObjectIdentityQuery extends BaseObjectIdentityQuery
     /**
      * Return all children and grand-children of the given object identity.
      *
-     * @param \Propel\Bundle\PropelAclBundle\Model\Acl\ObjectIdentity $objectIdentity
-     * @param \PropelPDO                                              $con
+     * @param ObjectIdentity  $objectIdentity
+     * @param \PropelPDO|null $con
      *
      * @return \PropelObjectCollection
      */
@@ -91,8 +91,8 @@ class ObjectIdentityQuery extends BaseObjectIdentityQuery
     /**
      * Return all ancestors of the given object identity.
      *
-     * @param ObjectIdentity $objectIdentity
-     * @param \PropelPDO     $con
+     * @param ObjectIdentity  $objectIdentity
+     * @param \PropelPDO|null $con
      *
      * @return \PropelObjectCollection
      */

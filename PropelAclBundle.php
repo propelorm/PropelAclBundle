@@ -12,10 +12,8 @@ namespace Propel\Bundle\PropelAclBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * PropelAclBundle.
- *
  * @author Toni Uebernickel <tuebernickel@gmail.com>
  */
-class PropelAclBundle extends Bundle
+final class PropelAclBundle extends Bundle
 {
 }

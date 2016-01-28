@@ -13,6 +13,7 @@ use Propel\Bundle\PropelAclBundle\Model\Acl\Entry as ModelEntry;
 use Propel\Bundle\PropelAclBundle\Model\Acl\SecurityIdentity;
 use Symfony\Component\Security\Acl\Model\AclInterface;
 use Symfony\Component\Security\Acl\Model\AuditableEntryInterface;
+use Symfony\Component\Security\Acl\Model\SecurityIdentityInterface;
 
 /**
  * An ACE implementation retrieving data from a given Propel\Bundle\PropelAclBundle\Model\Acl\Entry.
@@ -25,21 +26,51 @@ use Symfony\Component\Security\Acl\Model\AuditableEntryInterface;
  */
 class Entry implements AuditableEntryInterface
 {
+    /**
+     * @var AclInterface
+     */
     protected $acl;
 
+    /**
+     * @var int
+     */
     protected $id;
+
+    /**
+     * @var SecurityIdentityInterface
+     */
     protected $securityIdentity;
+
+    /**
+     * @var int
+     */
     protected $mask;
+
+    /**
+     * @var bool
+     */
     protected $isGranting;
+
+    /**
+     * @var string
+     */
     protected $strategy;
+
+    /**
+     * @var bool
+     */
     protected $auditSuccess;
+
+    /**
+     * @var bool
+     */
     protected $auditFailure;
 
     /**
      * Constructor.
      *
-     * @param \Propel\Bundle\PropelAclBundle\Model\Acl\Entry     $entry
-     * @param \Symfony\Component\Security\Acl\Model\AclInterface $acl
+     * @param ModelEntry   $entry
+     * @param AclInterface $acl
      */
     public function __construct(ModelEntry $entry, AclInterface $acl)
     {
@@ -62,11 +93,7 @@ class Entry implements AuditableEntryInterface
     }
 
     /**
-     * String representation of object.
-     *
-     * @link http://php.net/manual/en/serializable.serialize.php
-     *
-     * @return string the string representation of the object or &null;
+     * {@inheritdoc}
      */
     public function serialize()
     {
@@ -83,13 +110,7 @@ class Entry implements AuditableEntryInterface
     }
 
     /**
-     * Constructs the object.
-     *
-     * @link http://php.net/manual/en/serializable.unserialize.php
-     *
-     * @param string $serialized
-     *
-     * @return mixed the original value unserialized.
+     * {@inheritdoc}
      */
     public function unserialize($serialized)
     {
@@ -107,9 +128,7 @@ class Entry implements AuditableEntryInterface
     }
 
     /**
-     * The ACL this ACE is associated with.
-     *
-     * @return \Symfony\Component\Security\Acl\Model\AclInterface
+     * {@inheritdoc}
      */
     public function getAcl()
     {
@@ -117,9 +136,7 @@ class Entry implements AuditableEntryInterface
     }
 
     /**
-     * The security identity associated with this ACE.
-     *
-     * @return \Symfony\Component\Security\Acl\Model\SecurityIdentityInterface
+     * {@inheritdoc}
      */
     public function getSecurityIdentity()
     {
@@ -127,9 +144,7 @@ class Entry implements AuditableEntryInterface
     }
 
     /**
-     * The primary key of this ACE.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getId()
     {
@@ -137,9 +152,7 @@ class Entry implements AuditableEntryInterface
     }
 
     /**
-     * The permission mask of this ACE.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getMask()
     {
@@ -147,9 +160,7 @@ class Entry implements AuditableEntryInterface
     }
 
     /**
-     * The strategy for comparing masks.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getStrategy()
     {
@@ -157,9 +168,7 @@ class Entry implements AuditableEntryInterface
     }
 
     /**
-     * Returns whether this ACE is granting, or denying.
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isGranting()
     {
@@ -167,9 +176,7 @@ class Entry implements AuditableEntryInterface
     }
 
     /**
-     * Whether auditing for successful grants is turned on.
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isAuditFailure()
     {
@@ -177,9 +184,7 @@ class Entry implements AuditableEntryInterface
     }
 
     /**
-     * Whether auditing for successful denies is turned on.
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isAuditSuccess()
     {
