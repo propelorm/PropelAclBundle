@@ -1,7 +1,7 @@
 PropelAclBundle
 ===============
 
-The `PropelAclBundle` is an extension to the `PropelBundle` enabling support for the Symfony Security ACL component.
+The `PropelAclBundle`_ is an extension to the `PropelBundle`_ enabling support for the Symfony Security ACL component.
 
 Installation
 ------------
@@ -38,7 +38,7 @@ The bundle registers a service named ``propel.security.acl.provider`` which is a
 The auditing of this provider is set to a sensible default. It will audit all ACL failures but no success by default.
 If you also want to audit successful authorizations, you need to update the auditing of the given ACL accordingly.
 
-To make use of this implementation you need to configure it in your `security.yml`:
+To make use of this implementation you need to configure it in your `security.yml`_:
 
 .. code-block:: yaml
 
