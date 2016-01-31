@@ -17,11 +17,11 @@ use Symfony\Component\Security\Acl\Model\SecurityIdentityInterface;
 class SecurityIdentity extends BaseSecurityIdentity
 {
     /**
-     * Transform a given mode security identity into an ACL related SecurityIdentity.
+     * Transforms a given model security identity into an ACL related SecurityIdentity.
      *
-     * @param \Propel\Bundle\PropelAclBundle\Model\Acl\SecurityIdentity $securityIdentity
+     * @param SecurityIdentity $securityIdentity
      *
-     * @return \Symfony\Component\Security\Acl\Model\SecurityIdentityInterface
+     * @return SecurityIdentityInterface
      */
     public static function toAclIdentity(SecurityIdentity $securityIdentity)
     {
@@ -45,16 +45,16 @@ class SecurityIdentity extends BaseSecurityIdentity
     }
 
     /**
-     * Transform a given ACL security identity into a SecurityIdentity model.
+     * Transforms a given ACL security identity into a SecurityIdentity model.
      *
      * If there is no model entry given, a new one will be created and saved to the database.
      *
      * @throws \InvalidArgumentException
      *
-     * @param \Symfony\Component\Security\Acl\Model\SecurityIdentityInterface $aclIdentity
-     * @param \PropelPDO                                                      $con
+     * @param SecurityIdentityInterface $aclIdentity
+     * @param \PropelPDO|null           $con
      *
-     * @return \Propel\Bundle\PropelAclBundle\Model\Acl\SecurityIdentity
+     * @return SecurityIdentity
      */
     public static function fromAclIdentity(SecurityIdentityInterface $aclIdentity, \PropelPDO $con = null)
     {

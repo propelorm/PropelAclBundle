@@ -20,13 +20,13 @@ use Symfony\Component\Security\Acl\Model\FieldEntryInterface;
 class Entry extends BaseEntry
 {
     /**
-     * Transform a given ACL entry into a Entry model.
+     * Transforms a given ACL entry into an Entry model.
      *
      * The entry will not be persisted!
      *
-     * @param \Symfony\Component\Security\Acl\Model\EntryInterface $aclEntry
+     * @param EntryInterface $aclEntry
      *
-     * @return \Propel\Bundle\PropelAclBundle\Model\Acl\Entry
+     * @return Entry
      */
     public static function fromAclEntry(EntryInterface $aclEntry)
     {
@@ -59,12 +59,12 @@ class Entry extends BaseEntry
     }
 
     /**
-     * Transform a given model entry into an ACL related Entry (ACE).
+     * Transforms a given model entry into an ACL related Entry (ACE).
      *
-     * @param \Propel\Bundle\PropelAclBundle\Model\Acl\Entry     $modelEntry
-     * @param \Symfony\Component\Security\Acl\Model\AclInterface $acl
+     * @param Entry        $modelEntry
+     * @param AclInterface $acl
      *
-     * @return \Symfony\Component\Security\Acl\Model\EntryInterface
+     * @return EntryInterface
      */
     public static function toAclEntry(Entry $modelEntry, AclInterface $acl)
     {

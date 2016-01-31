@@ -16,13 +16,13 @@ use Symfony\Component\Security\Acl\Model\SecurityIdentityInterface;
 class EntryQuery extends BaseEntryQuery
 {
     /**
-     * Return Entry objects filtered by an ACL related ObjectIdentity.
+     * Returns Entry objects filtered by an ACL related ObjectIdentity.
      *
      * @see find()
      *
-     * @param \Symfony\Component\Security\Acl\Model\ObjectIdentityInterface $objectIdentity     An ACL related ObjectIdentity.
-     * @param array                                                         $securityIdentities A list of SecurityIdentity to filter by.
-     * @param \PropelPDO                                                    $con
+     * @param ObjectIdentityInterface $objectIdentity     An ACL related ObjectIdentity.
+     * @param array                   $securityIdentities A list of SecurityIdentity to filter by.
+     * @param \PropelPDO|null         $con
      *
      * @return \PropelObjectCollection
      */

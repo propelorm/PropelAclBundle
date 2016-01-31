@@ -24,34 +24,67 @@ class Acl implements AclInterface
 {
     protected $model = 'Propel\Bundle\PropelAclBundle\Model\Acl\Entry';
 
+    /**
+     * @var Entry[]
+     */
     protected $classAces = array();
+
+    /**
+     * @var FieldEntry[]
+     */
     protected $classFieldAces = array();
+
+    /**
+     * @var Entry[]
+     */
     protected $objectAces = array();
+
+    /**
+     * @var FieldEntry[]
+     */
     protected $objectFieldAces = array();
 
+    /**
+     * @var ObjectIdentityInterface
+     */
     protected $objectIdentity;
+
+    /**
+     * @var AclInterface|null
+     */
     protected $parentAcl;
+
+    /**
+     * @var PermissionGrantingStrategyInterface
+     */
     protected $permissionGrantingStrategy;
+
+    /**
+     * @var bool
+     */
     protected $inherited;
 
+    /**
+     * @var SecurityIdentityInterface[]
+     */
     protected $loadedSecurityIdentities = array();
 
     /**
      * A list of known associated fields on this ACL.
      *
-     * @var array
+     * @var string[]
      */
     protected $fields = array();
 
     /**
      * Constructor.
      *
-     * @param \PropelObjectCollection                                                   $entries
-     * @param \Symfony\Component\Security\Acl\Model\ObjectIdentityInterface             $objectIdentity
-     * @param \Symfony\Component\Security\Acl\Model\PermissionGrantingStrategyInterface $permissionGrantingStrategy
-     * @param array                                                                     $loadedSecurityIdentities
-     * @param \Symfony\Component\Security\Acl\Model\AclInterface                        $parentAcl
-     * @param bool                                                                      $inherited
+     * @param \PropelObjectCollection             $entries
+     * @param ObjectIdentityInterface             $objectIdentity
+     * @param PermissionGrantingStrategyInterface $permissionGrantingStrategy
+     * @param array                               $loadedSecurityIdentities
+     * @param AclInterface|null                   $parentAcl
+     * @param bool                                $inherited
      */
     public function __construct(\PropelObjectCollection $entries, ObjectIdentityInterface $objectIdentity, PermissionGrantingStrategyInterface $permissionGrantingStrategy, array $loadedSecurityIdentities = array(), AclInterface $parentAcl = null, $inherited = true)
     {
@@ -97,9 +130,7 @@ class Acl implements AclInterface
     }
 
     /**
-     * Returns all class-based ACEs associated with this ACL.
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function getClassAces()
     {
@@ -107,11 +138,7 @@ class Acl implements AclInterface
     }
 
     /**
-     * Returns all class-field-based ACEs associated with this ACL.
-     *
-     * @param string $field
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function getClassFieldAces($field)
     {
@@ -119,9 +146,7 @@ class Acl implements AclInterface
     }
 
     /**
-     * Returns all object-based ACEs associated with this ACL.
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function getObjectAces()
     {
@@ -129,11 +154,7 @@ class Acl implements AclInterface
     }
 
     /**
-     * Returns all object-field-based ACEs associated with this ACL.
-     *
-     * @param string $field
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function getObjectFieldAces($field)
     {
@@ -141,9 +162,7 @@ class Acl implements AclInterface
     }
 
     /**
-     * Returns the object identity associated with this ACL.
-     *
-     * @return \Symfony\Component\Security\Acl\Model\ObjectIdentityInterface
+     * {@inheritdoc}
      */
     public function getObjectIdentity()
     {
@@ -151,9 +170,7 @@ class Acl implements AclInterface
     }
 
     /**
-     * Returns the parent ACL, or null if there is none.
-     *
-     * @return \Symfony\Component\Security\Acl\Model\AclInterface|null
+     * {@inheritdoc}
      */
     public function getParentAcl()
     {
@@ -161,9 +178,7 @@ class Acl implements AclInterface
     }
 
     /**
-     * Whether this ACL is inheriting ACEs from a parent ACL.
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isEntriesInheriting()
     {
@@ -171,14 +186,7 @@ class Acl implements AclInterface
     }
 
     /**
-     * Determines whether field access is granted.
-     *
-     * @param string $field
-     * @param array  $masks
-     * @param array  $securityIdentities
-     * @param bool   $administrativeMode
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isFieldGranted($field, array $masks, array $securityIdentities, $administrativeMode = false)
     {
@@ -186,15 +194,7 @@ class Acl implements AclInterface
     }
 
     /**
-     * Determines whether access is granted.
-     *
-     * @throws \Symfony\Component\Security\Acl\Exception\NoAceFoundException when no ACE was applicable for this request
-     *
-     * @param array $masks
-     * @param array $securityIdentities
-     * @param bool  $administrativeMode
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isGranted(array $masks, array $securityIdentities, $administrativeMode = false)
     {
@@ -202,13 +202,7 @@ class Acl implements AclInterface
     }
 
     /**
-     * Whether the ACL has loaded ACEs for all of the passed security identities.
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @param mixed $securityIdentities an implementation of SecurityIdentityInterface, or an array thereof
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isSidLoaded($securityIdentities)
     {
@@ -235,11 +229,7 @@ class Acl implements AclInterface
     }
 
     /**
-     * String representation of object.
-     *
-     * @link http://php.net/manual/en/serializable.serialize.php
-     *
-     * @return string the string representation of the object or &null;
+     * {@inheritdoc}
      */
     public function serialize()
     {
@@ -258,13 +248,7 @@ class Acl implements AclInterface
     }
 
     /**
-     * Constructs the object.
-     *
-     * @link http://php.net/manual/en/serializable.unserialize.php
-     *
-     * @param string $serialized
-     *
-     * @return mixed the original value unserialized.
+     * {@inheritdoc}
      */
     public function unserialize($serialized)
     {
@@ -294,11 +278,11 @@ class Acl implements AclInterface
     }
 
     /**
-     * Update the internal list of associated fields on this ACL.
+     * Updates the internal list of associated fields on this ACL.
      *
      * @param string $field
      *
-     * @return \Propel\Bundle\PropelAclBundle\Security\Acl\Domain\Acl $this
+     * @return Acl
      */
     protected function updateFields($field)
     {

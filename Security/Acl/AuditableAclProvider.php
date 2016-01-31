@@ -19,15 +19,15 @@ use Symfony\Component\Security\Acl\Model\ObjectIdentityInterface;
 class AuditableAclProvider extends MutableAclProvider
 {
     /**
-     * Get an ACL for this provider.
+     * Creates an ACL for this provider.
      *
-     * @param \PropelObjectCollection                                       $collection
-     * @param \Symfony\Component\Security\Acl\Model\ObjectIdentityInterface $objectIdentity
-     * @param array                                                         $loadedSecurityIdentities
-     * @param \Symfony\Component\Security\Acl\Model\AclInterface            $parentAcl
-     * @param bool                                                          $inherited
+     * @param \PropelObjectCollection $collection
+     * @param ObjectIdentityInterface $objectIdentity
+     * @param array                   $loadedSecurityIdentities
+     * @param AclInterface|null       $parentAcl
+     * @param bool                    $inherited
      *
-     * @return \Propel\Bundle\PropelAclBundle\Security\Acl\Domain\AuditableAcl
+     * @return AuditableAcl
      */
     protected function getAcl(\PropelObjectCollection $collection, ObjectIdentityInterface $objectIdentity, array $loadedSecurityIdentities = array(), AclInterface $parentAcl = null, $inherited = true)
     {

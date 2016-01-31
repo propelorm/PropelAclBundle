@@ -15,14 +15,14 @@ use Symfony\Component\Security\Acl\Model\ObjectIdentityInterface;
 class AclClass extends BaseAclClass
 {
     /**
-     * Return an AclClass for the given ACL ObjectIdentity.
+     * Returns an AclClass for the given ACL ObjectIdentity.
      *
      * If none can be found, a new one will be saved.
      *
-     * @param \Symfony\Component\Security\Acl\Model\ObjectIdentityInterface $objectIdentity
-     * @param \PropelPDO                                                    $con
+     * @param ObjectIdentityInterface $objectIdentity
+     * @param \PropelPDO|null         $con
      *
-     * @return \Propel\Bundle\PropelAclBundle\Model\Acl\AclClass
+     * @return AclClass
      */
     public static function fromAclObjectIdentity(ObjectIdentityInterface $objectIdentity, \PropelPDO $con = null)
     {

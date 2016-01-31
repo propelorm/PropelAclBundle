@@ -58,11 +58,11 @@ class ObjectIdentity extends BaseObjectIdentity
     }
 
     /**
-     * Update all ancestor entries to reflect changes on this instance.
+     * Updates all ancestor entries to reflect changes on this instance.
      *
-     * @param \PropelPDO $con
+     * @param \PropelPDO $con|null
      *
-     * @return \Propel\Bundle\PropelAclBundle\Model\Acl\ObjectIdentity $this
+     * @return ObjectIdentity
      */
     protected function updateAncestorsTree(\PropelPDO $con = null)
     {

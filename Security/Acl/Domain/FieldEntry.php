@@ -24,13 +24,16 @@ use Symfony\Component\Security\Acl\Model\FieldEntryInterface;
  */
 class FieldEntry extends Entry implements FieldEntryInterface
 {
+    /**
+     * @var string
+     */
     protected $field;
 
     /**
      * Constructor.
      *
-     * @param \Propel\Bundle\PropelAclBundle\Model\Acl\Entry     $entry
-     * @param \Symfony\Component\Security\Acl\Model\AclInterface $acl
+     * @param ModelEntry   $entry
+     * @param AclInterface $acl
      */
     public function __construct(ModelEntry $entry, AclInterface $acl)
     {
@@ -40,9 +43,7 @@ class FieldEntry extends Entry implements FieldEntryInterface
     }
 
     /**
-     * Returns the field used for this entry.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getField()
     {
@@ -50,11 +51,7 @@ class FieldEntry extends Entry implements FieldEntryInterface
     }
 
     /**
-     * String representation of object.
-     *
-     * @link http://php.net/manual/en/serializable.serialize.php
-     *
-     * @return string the string representation of the object or &null;
+     * {@inheritdoc}
      */
     public function serialize()
     {
@@ -72,13 +69,7 @@ class FieldEntry extends Entry implements FieldEntryInterface
     }
 
     /**
-     * Constructs the object.
-     *
-     * @link http://php.net/manual/en/serializable.unserialize.php
-     *
-     * @param string $serialized
-     *
-     * @return mixed the original value unserialized.
+     * {@inheritdoc}
      */
     public function unserialize($serialized)
     {

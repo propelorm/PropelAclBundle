@@ -36,11 +36,11 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
     /**
      * Creates a new ACL for the given object identity.
      *
-     * @throws \Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException When there already is an ACL for the given object identity.
+     * @throws AclAlreadyExistsException When there already is an ACL for the given object identity.
      *
-     * @param \Symfony\Component\Security\Acl\Model\ObjectIdentityInterface $objectIdentity
+     * @param ObjectIdentityInterface $objectIdentity
      *
-     * @return \Propel\Bundle\PropelAclBundle\Security\Acl\Domain\MutableAcl
+     * @return MutableAcl
      */
     public function createAcl(ObjectIdentityInterface $objectIdentity)
     {
@@ -63,16 +63,7 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
     }
 
     /**
-     * Deletes the ACL for a given object identity.
-     *
-     * This will automatically trigger a delete for any child ACLs. If you don't
-     * want child ACLs to be deleted, you will have to set their parent ACL to null.
-     *
-     * @throws \Symfony\Component\Security\Acl\Exception\Exception
-     *
-     * @param \Symfony\Component\Security\Acl\Model\ObjectIdentityInterface $objectIdentity
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function deleteAcl(ObjectIdentityInterface $objectIdentity)
     {
@@ -117,22 +108,14 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
 
             return true;
         // @codeCoverageIgnoreStart
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw new AclException('An error occurred while deleting the ACL.', 1, $e);
         }
         // @codeCoverageIgnoreEnd
     }
 
     /**
-     * Persists any changes which were made to the ACL, or any associated access control entries.
-     *
-     * Changes to parent ACLs are not persisted.
-     *
-     * @throws \Symfony\Component\Security\Acl\Exception\Exception
-     *
-     * @param \Symfony\Component\Security\Acl\Model\MutableAclInterface $acl
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function updateAcl(MutableAclInterface $acl)
     {
@@ -197,17 +180,17 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
     /**
      * Persist the given ACEs.
      *
-     * @param array                                                   $accessControlEntries
-     * @param \Propel\Bundle\PropelAclBundle\Model\Acl\ObjectIdentity $objectIdentity
-     * @param bool                                                    $object
+     * @param array          $accessControlEntries
+     * @param ObjectIdentity $objectIdentity
+     * @param bool           $object
      *
-     * @return array The IDs of the persisted ACEs.
+     * @return int[] The IDs of the persisted ACEs.
      */
     protected function persistAcl(array $accessControlEntries, ObjectIdentity $objectIdentity, $object = false)
     {
         $entries = array();
 
-        /* @var $eachAce \Symfony\Component\Security\Acl\Model\EntryInterface */
+        /* @var $eachAce EntryInterface */
         foreach ($accessControlEntries as $order => $eachAce) {
             // If the given ACE has never been persisted, create a new one.
             if (null === $entry = $this->getPersistedAce($eachAce, $objectIdentity, $object)) {
@@ -252,9 +235,11 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
      *
      * If none is given, null is returned.
      *
-     * @param \Symfony\Component\Security\Acl\Model\EntryInterface $ace
+     * @param EntryInterface $ace
+     * @param ObjectIdentity $objectIdentity
+     * @param bool           $object
      *
-     * @return \Propel\Bundle\PropelAclBundle\Model\Acl\Entry|null
+     * @return ModelEntry|null
      */
     protected function getPersistedAce(EntryInterface $ace, ObjectIdentity $objectIdentity, $object = false)
     {
@@ -291,15 +276,15 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
     }
 
     /**
-     * Get an ACL for this provider.
+     * Creates an ACL for this provider.
      *
-     * @param \PropelObjectCollection                                       $collection
-     * @param \Symfony\Component\Security\Acl\Model\ObjectIdentityInterface $objectIdentity
-     * @param array                                                         $loadedSecurityIdentities
-     * @param \Symfony\Component\Security\Acl\Model\AclInterface            $parentAcl
-     * @param bool                                                          $inherited
+     * @param \PropelObjectCollection $collection
+     * @param ObjectIdentityInterface $objectIdentity
+     * @param array                   $loadedSecurityIdentities
+     * @param AclInterface|null       $parentAcl
+     * @param bool                    $inherited
      *
-     * @return \Propel\Bundle\PropelAclBundle\Security\Acl\Domain\MutableAcl
+     * @return MutableAcl
      */
     protected function getAcl(\PropelObjectCollection $collection, ObjectIdentityInterface $objectIdentity, array $loadedSecurityIdentities = array(), AclInterface $parentAcl = null, $inherited = true)
     {

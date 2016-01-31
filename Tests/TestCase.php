@@ -16,6 +16,7 @@ use Propel\Bundle\PropelAclBundle\Security\Acl\MutableAclProvider;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\PermissionGrantingStrategy;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
+use Symfony\Component\Security\Acl\Model\AclCacheInterface;
 use Symfony\Component\Security\Core\Role\Role;
 
 /**
@@ -25,35 +26,33 @@ use Symfony\Component\Security\Core\Role\Role;
  */
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
-    protected $con = null;
-    protected $cache = null;
+    /**
+     * @var \PropelPDO|null
+     */
+    protected $con;
 
-    public static function setUpBeforeClass()
-    {
-        if (!class_exists('Propel')) {
-            self::markTestSkipped('Propel is not available.');
-        }
-    }
+    /**
+     * @var AclCacheInterface|null
+     */
+    protected $cache;
 
     public function setUp()
     {
-        parent::setUp();
-
         $schema = file_get_contents(__DIR__.'/../Resources/config/propel/acl_schema.xml');
 
         $builder = new \PropelQuickBuilder();
         $builder->setSchema($schema);
+        $builder->setClassTargets(array());
+
         if (!class_exists('Propel\Bundle\PropelAclBundle\Model\Acl\map\AclClassTableMap')) {
             $builder->setClassTargets(array('tablemap', 'peer', 'object', 'query'));
-        } else {
-            $builder->setClassTargets(array());
         }
 
         $this->con = $builder->build();
     }
 
     /**
-     * @return \Propel\Bundle\PropelAclBundle\Model\Acl\ObjectIdentity
+     * @return ModelObjectIdentity
      */
     protected function createModelObjectIdentity($identifier)
     {
